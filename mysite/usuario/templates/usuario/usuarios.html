@@ -1,0 +1,30 @@
+{% extends "usuario/base.html" %}
+{% load staticfiles %}
+
+{% block estilo %}
+    <link rel="stylesheet" href="{% static 'css\usuarios.css' %}" type="text/css" >
+{% endblock %}
+
+{% block content %}
+    <p><b> USUARIOS</b></p>
+    {% if lista_usuarios %}
+        <div class="card-deck">
+            {% for usuario in lista_usuarios %}
+            <div class="card">
+
+                <img class="card-img-top" src="{% static usuario.imagen %}" alt="{{ usuario.imagen }}" lenght="200px">
+                <div class="card-body">
+                    <h5 class="card-title">{{ usuario.nombres }} {{ usuario.apellidos }}</h5>
+                    <ul>
+                        {% for servicios in usuario.servicios_set.all %}
+                            <li>{{ servicios.nombre_serv }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No Existen Usuarios.</p>
+    {% endif %}
+{% endblock %}

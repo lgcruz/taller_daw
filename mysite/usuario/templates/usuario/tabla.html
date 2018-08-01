@@ -1,0 +1,98 @@
+{% extends "usuario/base.html" %}
+{% load staticfiles %}
+{% block estilo %}
+    <link rel="stylesheet" href="{% static 'css\tabla.css' %}" type="text/css" >
+{% endblock %}
+{% block content %}
+<div class="contenido">
+
+    <form class="form-inline" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Servicios: </label>
+                    <br>
+                    <select class="form-control" id="exampleFormControlSelect1" name="agencia">
+                        {% for agencia in agencias %}
+                        <option>{{ agencia }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2">Mes:  </label>
+                    <br>
+                    <select class="form-control" id="exampleFormControlSelect2" name="mes">
+                        {% for mes in meses %}
+                        <option>{{ mes }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+             <div class="col-3">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect3">registros:  </label>
+                    <br>
+                    <select class="form-control" id="exampleFormControlSelect3" name="cantidad">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                        <option>75</option>
+                        <option>100</option>
+                    </select>
+                </div>
+             </div>
+            <div class="col-3">
+                <input type="submit" value="Buscar: ">
+            </div>
+        </div>
+    </form>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Agencia</th>
+                <th scope="col">Provincia</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Fecha</th>
+            </tr>
+        </thead>
+        {% if filas %}
+        <tbody>
+            {% for fila in filas %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ fila.nombre }}</td>
+                <td>{{ fila.agencia }}</td>
+                <td>{{ fila.provincia }}</td>
+                <td>{{ fila.fecha }}</td>
+                <td>{{ fila.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% else %}
+        <tbody>
+            <tr>
+                <td colspan="6">Vacio</td>
+            </tr>
+        </tbody>
+        {% endif %}
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" >1</a></li>
+            <li class="page-item"><a class="page-link" >2</a></li>
+            <li class="page-item"><a class="page-link" >3</a></li>
+            <li class="page-item">
+                <a class="page-link" >Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endblock %}
